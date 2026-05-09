@@ -84,4 +84,29 @@ def update(id, data):
 data = {"id": randrange(0, 100000),"savage": "presentation"}
 # update(1, data)
 
-load()
+def find_by_id(id):
+    posts = load()
+    index = find_index(id)
+    if index == None:
+        return print("Id not found")
+
+    for i, post in enumerate(posts):
+        if i == index:
+            print(post)
+            return post
+
+# find_by_id(556382)
+
+def delete(id):
+    posts = load()
+    index = find_index(id)
+    print(posts)
+
+    if index == None:
+        return print("Id not found")
+    
+    posts.pop(index)
+    print(posts)
+    return print(f"Post with id: {id} delated")
+
+delete(556382)
