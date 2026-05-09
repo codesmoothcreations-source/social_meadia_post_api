@@ -35,12 +35,12 @@ def save(data):
         
         # save the list
         with open (file_name, 'w', encoding='utf8') as f:
-            json.dump(data, f)
+            json.dump(data, f, indent=4)
     else:
         print("File not found")
 
 data = {"id": randrange(0, 1000000), "Panda": "Coder"}
-save(data)
+# save(data)
 
 def load():
     if os.path.exists(collection):
@@ -51,13 +51,37 @@ def load():
                 data = []
     else:
         print("Collection not found:" + str(collection))
+
     return data
 
 # print(load())
 
+def find_index(id):
+    try:
+        id = int(id)
+    except TypeError:
+        print("Invalid id" + str(id))
+
+    posts = load()
+    for i, post in enumerate(posts):
+        if post['id'] == id:
+            return i
+
+
 def update(id, data):
     '''update the file by id and updating every thing'''
-    pass
+    posts = load()
+    index = find_index(id)
+    if index == None:
+        return print("Id not found")
+    # pass data in as a dictionary
+    posts[index] = data
 
-# data = {"id": randrange(0, 100000),"savage": "presentation"}
+    with open (collection, 'w', encoding='utf8') as f:
+        json.dump(posts, f, indent=4)
+
+
+data = {"id": randrange(0, 100000),"savage": "presentation"}
 # update(1, data)
+
+load()
